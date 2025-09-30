@@ -1,4 +1,12 @@
+# ------------------------
 # Logs
+# ------------------------
+# Keep ONE lockfile
+# If we want reproducible builds, REMOVE this line:
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
+
 logs
 *.log
 npm-debug.log*
@@ -10,15 +18,63 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+# ------------------------
+# Misc
+# ------------------------
 *.local
 
 # Editor directories and files
-.vscode/*
+# ------------------------
+# IDE/editor cruft
+# ------------------------
+.vscode/
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+.vscode/*
+.idea
+
+# Updated (may have to change)
+# ------------------------
+# Node & package managers
+# ------------------------
+node_modules/
+dist/
+dist-ssr/
+build/
+.pnpm-store/
+.npm/
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# ------------------------
+# Environment files
+# ------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+# ------------------------
+# OS-specific
+# ------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# ------------------------
+# Coverage/testing
+# ------------------------
+coverage/
+*.lcov
