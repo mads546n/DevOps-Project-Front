@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 
 
 describe('AuctionPrice Component', () => {
-  it('updates auction price on submit', () => {
+  it('updates auction price on submit (Usecase: #3)', () => {
     render(<AuctionBetButton />);
     const input = screen.getByPlaceholderText(/enter your bid/i);
     const button = screen.getByRole('button', { name: /submit bid/i });
