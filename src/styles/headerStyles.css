@@ -1,0 +1,115 @@
+/* Header uses your theme tokens from index.css/uiStyles.css */
+:root {
+    --header-height: 64px;
+    --header-radius: 12px;
+}
+
+/* Outer shell: slight transparency so the hero peeks through a bit */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-height);
+    display: grid;
+    place-items: center;
+    padding-inline: 0.75rem;
+
+    /* the cream bar with thin border & rounded corners */
+    background: color-mix(in srgb, var(--bg-color) 92%, transparent);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    border: 1px solid var(--panel-border);
+    border-radius: var(--header-radius) var(--header-radius) calc(var(--header-radius) - 6px) calc(var(--header-radius) - 6px);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+
+/* Add drop shadow only after scrolling a bit */
+.site-header.is-elevated {
+    box-shadow:
+            0 1px 0 color-mix(in srgb, var(--text-color) 12%, transparent),
+            0 8px 20px rgba(0,0,0,.12);
+}
+
+/* Inner layout: left nav – brand – right nav */
+.site-header__nav {
+    height: 100%;
+    width: min(1100px, 96vw);
+    margin-inline: auto;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 1rem;
+}
+
+/* Left and right navs */
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+/* Right group aligns to the end */
+.nav-right {
+    justify-content: flex-end;
+}
+
+/* Links */
+.nav-link {
+    font-size: 0.95rem;
+    color: #7F170E;
+    text-decoration: none;
+    padding: .3rem .25rem;
+    border-radius: 6px;
+    transition: color .15s ease, background-color .15s ease;
+}
+.nav-link:hover {
+    color: var(--text-color);
+    background: color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+.nav-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Center brand: serif, letter-spaced, burgundy */
+.brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+
+    /* elegant serif stack */
+    font-family: "Georgia", "Garamond", "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    font-size: 1.25rem;
+
+    color: var(--brand-burgundy, var(--color-primary));
+    text-transform: uppercase;
+}
+.brand:hover { opacity: .9; }
+
+/* Tight header on small screens */
+@media (max-width: 700px) {
+    :root { --header-height: 56px; }
+
+    .site-header__nav {
+        grid-template-columns: auto 1fr auto;
+        width: 100%;
+    }
+
+    .nav-left, .nav-right {
+        gap: 0.75rem;
+    }
+
+    .nav-link { font-size: .9rem; }
+    .brand { font-size: 1.1rem; letter-spacing: .1em; }
+}
+
+/* If you need super-compact phones */
+@media (max-width: 420px) {
+    .nav-left li:nth-child(3) { display: none; } /* hide "Om os" */
+}

@@ -1,0 +1,286 @@
+/* ---------- Brand Theme (TETRA ART) ---------- */
+[data-brand="tetra"] {
+    /* neutrals */
+    --body-bg-color: #f4f1ea;   /* cream paper */
+    --bg-color:       #fff9f4;   /* light panels */
+    --text-color:     #231f1a;   /* ink brown */
+    --icon-color:     #3a2d26;
+
+    /* brand palette */
+    --brand-burgundy:  #7b1e1e;  /* section headers, CTA bg */
+    --brand-terracotta:#b24c2a;  /* warm accent (buttons, tags) */
+    --brand-sand:      #e7d7c9;  /* surfaces / chips */
+    --brand-wine:      #5a1414;  /* darker burgundy (hover, borders) */
+    --brand-caramel:   #d4a373;  /* subtle accents / focus */
+    --brand-ivory:     #fff7ee;  /* card bg alt */
+
+    /* map to semantic tokens used across components */
+    --color-primary:   var(--brand-burgundy);
+    --color-success:   #2f8d46;
+    --color-warning:   #c78011;
+    --color-error:     #c9372c;
+
+    --card-border:     color-mix(in srgb, var(--text-color) 20%, transparent);
+    --panel-border:    color-mix(in srgb, var(--brand-burgundy) 30%, transparent);
+}
+
+[data-brand="tetra"][data-theme="dark"] {
+    --body-bg-color:   #171312;
+    --bg-color:        #1f1a18;
+    --text-color:      #f4eee9;
+    --icon-color:      #efe8e1;
+
+    --brand-burgundy:  #a13133;
+    --brand-terracotta:#d0613b;
+    --brand-sand:      #3b2e28;
+    --brand-wine:      #7c2829;
+    --brand-caramel:   #e3b27d;
+    --brand-ivory:     #2a2320;
+
+    --color-primary:   var(--brand-burgundy);
+    --color-success:   #43c464;
+    --color-warning:   #eab308;
+    --color-error:     #f87171;
+
+    --card-border:     color-mix(in srgb, var(--text-color) 25%, transparent);
+    --panel-border:    color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+/* ---------- Buttons ---------- */
+
+.ui-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .06s ease-in;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    min-height: 44px;
+}
+
+.ui-button:active { transform: translateY(1px); }
+
+.ui-button.primary {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+.ui-button.primary:hover { background-color: color-mix(in srgb, var(--color-primary) 85%, #fff 15%); }
+
+.ui-button.success { background-color: var(--color-success); color: #fff; }
+.ui-button.success:hover { background-color: color-mix(in srgb, var(--color-success) 85%, #fff 15%); }
+
+.ui-button.warning { background-color: var(--color-warning); color: #fff; }
+.ui-button.warning:hover { background-color: color-mix(in srgb, var(--color-warning) 85%, #fff 15%); }
+
+.ui-button.error { background-color: var(--color-error); color: #fff; }
+.ui-button.error:hover { background-color: color-mix(in srgb, var(--color-error) 85%, #fff 15%); }
+
+.ui-button.secondary {
+    background: var(--brand-sand);
+    border-color: var(--panel-border);
+    color: var(--text-color);
+}
+.ui-button.secondary:hover { border-color: var(--color-primary); }
+
+.ui-button.ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--text-color);
+}
+.ui-button.ghost:hover { background: color-mix(in srgb, var(--text-color) 8%, transparent); }
+
+/* Icon-only buttons (for the carousel arrows) */
+.ui-icon-btn {
+    width: 40px; height: 40px;
+    border-radius: 999px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--panel-border);
+    background: var(--bg-color);
+}
+.ui-icon-btn:hover {
+    border-color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 12%, var(--bg-color));
+}
+
+/* ---------- Cards ---------- */
+
+.ui-card {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border-radius: .75rem;
+    padding: 1rem;
+    border: 1px solid var(--card-border);
+    transition: box-shadow .2s ease, border-color .2s ease, transform .08s ease-in;
+}
+.ui-card:hover {
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    border-color: var(--panel-border);
+}
+.ui-card.header {
+    background: var(--brand-burgundy);
+    color: #fff;
+    border-color: transparent;
+}
+.ui-card.surface {
+    background: var(--brand-ivory);
+}
+
+/* ---------- Section panels (like the burgundy bands) ---------- */
+
+.ui-panel {
+    background: var(--brand-burgundy);
+    color: #fff;
+    border-radius: .9rem;
+    padding: 1.25rem;
+    border: 1px solid transparent;
+}
+.ui-panel .ui-title {
+    font-weight: 700;
+    letter-spacing: .2px;
+    margin-bottom: .75rem;
+}
+
+/* ---------- Progress ---------- */
+
+.ui-progress {
+    width: 100%;
+    background: color-mix(in srgb, var(--text-color) 12%, transparent);
+    border-radius: .5rem;
+    overflow: hidden;
+    height: .75rem;
+}
+.ui-progress-bar {
+    height: 100%;
+    width: 0%;
+    transition: width .3s ease;
+    background: var(--color-primary);
+}
+.ui-progress-bar.success { background: var(--color-success); }
+.ui-progress-bar.warning { background: var(--color-warning); }
+.ui-progress-bar.error   { background: var(--color-error); }
+
+/* ---------- Toggle (theme switch) ---------- */
+
+.toggle {
+    all: unset;
+    position: relative;
+    width: 64px;
+    height: 32px;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--text-color) 8%, transparent);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .3s ease, box-shadow .2s ease;
+}
+.toggle:hover { box-shadow: 0 3px 10px rgba(15, 23, 42, 0.25); }
+.toggle:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand-caramel) 70%, #fff); outline-offset: 2px; }
+
+.toggle.light { background-color: color-mix(in srgb, var(--color-primary) 12%, #f2f3f7); }
+.toggle.dark  { background-color: color-mix(in srgb, var(--color-primary) 20%, #141414); }
+
+.toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,.25);
+    transition: transform .3s ease;
+}
+.toggle.dark .toggle-thumb  { transform: translateX(28px); }
+.toggle.light .toggle-thumb { transform: translateX(0); }
+
+.toggle-icon {
+    position: absolute;
+    font-size: 16px;
+    pointer-events: none;
+    transition: color .3s ease, transform .3s ease, opacity .3s ease;
+}
+.toggle.light .toggle-icon { right: 10px; color: var(--brand-caramel); }
+.toggle.dark  .toggle-icon { left:  12px; color: #f8fafc; }
+
+/* ---------- Feedback Modal ---------- */
+
+.feedback-modal {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--card-border);
+    border-radius: .75rem;
+    padding: 1.25rem;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, .25);
+    max-width: 640px;
+    margin: 1rem auto;
+    transition: background .3s, color .3s, border-color .2s;
+}
+.feedback-modal h2 {
+    margin-bottom: .75rem;
+    font-weight: 700;
+}
+.feedback-form textarea {
+    width: 100%;
+    min-height: 140px;
+    border-radius: .5rem;
+    border: 1px solid var(--card-border);
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: .75rem 1rem;
+    resize: vertical;
+}
+.feedback-form textarea::placeholder { color: rgba(128,128,128,.6); }
+.feedback-form .hint {
+    display: flex; justify-content: space-between;
+    font-size: .9rem; opacity: .85; margin-top: .5rem;
+}
+.feedback-form button {
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    font-weight: 700;
+    transition: background .25s;
+}
+.feedback-form button:hover { background: color-mix(in srgb, var(--color-primary) 85%, #fff 15%); }
+.feedback-form button:disabled { background: gray; cursor: not-allowed; opacity: .7; }
+.feedback-form p.success { color: var(--color-success); }
+.feedback-form p.error   { color: var(--color-error); }
+
+/* ---------- Chips / Badges (optional for categories) ---------- */
+.ui-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    padding: .25rem .5rem;
+    border-radius: 999px;
+    background: var(--brand-sand);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    font-size: .875rem;
+    line-height: 1;
+}
+.ui-badge.primary {
+    background: color-mix(in srgb, var(--color-primary) 12%, var(--bg-color));
+    border-color: var(--panel-border);
+}
+
+/* ---------- Carousel rail helpers (for the card rows) ---------- */
+.ui-rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(280px, 85vw);
+    gap: 1rem;
+    overflow-x: auto;
+    padding: .25rem;
+    scroll-snap-type: x proximity;
+}
+.ui-rail > * { scroll-snap-align: start; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

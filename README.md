@@ -38,3 +38,6 @@ let value: string | number;
 value = "hello";
 value = 42; // both allowed
 
+
+_____________________STYLES______________________
+Added global styles
