@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import {DeviceProvider} from "./state/provider/DeviceProvider";
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {
@@ -11,6 +12,8 @@ if (!rootEl) {
 
 createRoot(rootEl).render(
     <StrictMode>
-        <App />
+        <DeviceProvider>
+            <App />
+        </DeviceProvider>
     </StrictMode>
 );
