@@ -1,4 +1,4 @@
-/* Header uses your theme tokens from index.css/uiStyles.css */
+/* Header uses theme tokens from index.css/uiStyles.css */
 :root {
     --header-height: 64px;
     --header-radius: 12px;
@@ -14,7 +14,7 @@
     place-items: center;
     padding-inline: 0.75rem;
 
-    /* the cream bar with thin border & rounded corners */
+    /* the cream bar */
     background: color-mix(in srgb, var(--bg-color) 92%, transparent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -81,7 +81,7 @@
     justify-content: center;
     text-decoration: none;
 
-    /* elegant serif stack */
+    /* serif stack */
     font-family: "Georgia", "Garamond", "Times New Roman", serif;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -109,7 +109,7 @@
     .brand { font-size: 1.1rem; letter-spacing: .1em; }
 }
 
-/* If you need super-compact phones */
+/* for small screens, hide "Om os" */
 @media (max-width: 420px) {
     .nav-left li:nth-child(3) { display: none; } /* hide "Om os" */
 }

@@ -1,27 +1,20 @@
 .subheader {
-    position: relative;
-    width: 100%;
-    /* responsive height: min/max to match your mock */
-    min-height: clamp(220px, 28vw, 360px);
-    display: grid;
-    align-items: end;
+    /* Give the custom property a default so linters & browsers see it */
+    --subheader-image: color #fffff;
 
     /* Background image + overlay */
     background-image:
-            linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.35) 100%),
+            linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0.35) 0%,
+                    rgba(0, 0, 0, 0.45) 60%,
+                    rgba(0, 0, 0, 0.35) 100%
+            ),
             var(--subheader-image);
+
     background-size: cover;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
-
-    /* Rounded like the mock (optional) */
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    overflow: hidden;
-
-    /* subtle border to match brand frame */
-    border: 1px solid color-mix(in srgb, var(--text-color) 10%, transparent);
-    box-shadow: 0 6px 18px rgba(0,0,0,.12) inset;
 }
 
 .subheader__content {
@@ -32,7 +25,6 @@
 .subheader__title {
     font-family: "Georgia", "Garamond", "Times New Roman", serif;
     font-weight: 700;
-    letter-spacing: .3px;
     font-size: clamp(1.25rem, 2.4vw, 2rem);
     line-height: 1.2;
     margin-bottom: .5rem;

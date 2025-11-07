@@ -1,12 +1,11 @@
 import React from "react";
 import "../styles/subHeaderStyles.css"
-// Import your asset (Vite will bundle it). Adjust the path/name:
 import heroUrl from "../assets/abstract-liquid.jpg";
 
 type Props = {
     title?: string;
     subtitle?: string;
-    imageUrl?: string; // allow override if needed
+    imageUrl?: string;
 };
 
 export default function SubHeader({

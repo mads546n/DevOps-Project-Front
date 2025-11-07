@@ -250,7 +250,7 @@
 .feedback-form p.success { color: var(--color-success); }
 .feedback-form p.error   { color: var(--color-error); }
 
-/* ---------- Chips / Badges (optional for categories) ---------- */
+/* ---------- Chips / Badges (for categories) ---------- */
 .ui-badge {
     display: inline-flex;
     align-items: center;
