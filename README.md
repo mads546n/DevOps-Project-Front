@@ -1,12 +1,40 @@
-# React + Vite
+Use of typescript: 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Short about typescript:
+TypeScript is JavaScript with type checking. 
+It helps catch errors before you run the code — while coding or building.
 
-Currently, two official plugins are available:
+Its only function is to help you with type checking. (it is run before the compiler and has no effect on the output).
+You have to specify the type of the variable that you are creating. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Instead of .jsx files use .tsx files. (then typescript will be able to check the types).
 
-## Expanding the ESLint configuration
+How to:
+When creating variables such as 'title', you just have to give it a type.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+// Variable
+const title: string = "Mona Lisa";
+const price: number = 1200;
+
+or 
+
+// Function parameters
+function printInfo(title: string, price: number): void {
+console.log("${title}: ${price}");
+}
+
+// Destructuring in React component
+function AuctionItem({ title, price }: { title: string; price: number }) {
+...
+}
+
+The types available are:
+string, number, boolean, void, null, object, any, undefined, never.
+(any, undefined, never are not recommended). They are used for special cases. And basically overwrites the type checker.
+
+Sometimes you have to say that the object is either or, like is 'union type':
+
+let value: string | number;
+value = "hello";
+value = 42; // both allowed
+
