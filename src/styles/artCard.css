@@ -1,0 +1,86 @@
+.artcard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border: 1px solid color-mix(in srgb, var(--text-color) 15%, transparent);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+.artcard:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    border-color: color-mix(in srgb, var(--brand-burgundy) 40%, transparent);
+    cursor: pointer;
+}
+
+.artcard__image-wrapper {
+    position: relative;
+    overflow: hidden;
+    background: var(--body-bg-color);
+    padding: 0.75rem;
+}
+
+.artcard__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid color-mix(in srgb, var(--text-color) 20%, transparent);
+    background: #e5e5e5;
+    transition: transform .25s ease;
+}
+
+.artcard:hover .artcard__image {
+    transform: scale(1.02);
+}
+
+.artcard__content {
+    padding: 0.75rem 1rem 1rem 1rem;
+}
+
+.artcard__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+
+.artcard__info {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--text-color) 90%, transparent);
+    margin-bottom: 0.5rem;
+}
+
+.artcard__price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.artcard__label {
+    color: color-mix(in srgb, var(--text-color) 90%, transparent);
+}
+
+.artcard__price {
+    font-weight: 700;
+    color: var(--brand-burgundy);
+}
+
+/* Make sure spacing is consistent with the carousel rail */
+@media (max-width: 600px) {
+    .artcard__title {
+        font-size: 0.95rem;
+    }
+    .artcard__info,
+    .artcard__price-row {
+        font-size: 0.85rem;
+    }
+}

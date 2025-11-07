@@ -1,0 +1,141 @@
+/* Header line: artist name + arrows */
+
+.artist-carousel__header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.artist-carousel__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Position arrows vertically centered along the rail edges on larger screens */
+.artist-carousel {
+    background-color: #7F170E;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+/* Arrow container */
+/* ========== Carousel Arrows (left & right) ========== */
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--panel-border);
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-primary) 15%, var(--bg-color));
+    transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-arrow:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Positions */
+.carousel-arrow.left {
+    left: -1.5rem; /* move outside the carousel content */
+}
+
+.carousel-arrow.right {
+    right: -1.5rem;
+}
+
+/* On smaller screens, bring them in so they don’t clip out */
+@media (max-width: 900px) {
+    .carousel-arrow.left {
+        left: 0.25rem;
+    }
+
+    .carousel-arrow.right {
+        right: 0.25rem;
+    }
+}
+
+/* Rail tweaks */
+.artist-carousel__rail {
+    grid-auto-columns: min(320px, 85vw); /* card width */
+    gap: 1rem;
+    padding: .25rem .25rem 0; /* small top pad like screenshot */
+}
+
+/* Card styling closer to mock: light bg, subtle border and inner layout */
+.artist-carousel__card {
+    background: #fff;
+    color: var(--text-color);
+    border: 1px solid color-mix(in srgb, var(--text-color) 15%, transparent);
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Default card inner structure (used until own ArtCard is in) */
+.artcard__media {
+    padding: 0.75rem 0.75rem 0 0.75rem;
+}
+
+.artcard__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    border: 1px solid color-mix(in srgb, var(--text-color) 20%, transparent);
+    background: #ddd;
+}
+
+.artcard__body {
+    padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+}
+
+.artcard__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: .75rem;
+    min-height: 2.5lh; /* keep two-line height steady */
+}
+
+.artcard__fixed {
+    font-weight: 700;
+    margin-bottom: .25rem;
+}
+
+.artcard__meta .artcard__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    font-size: .95rem;
+}
+
+/* Arrow button disabled state */
+.ui-icon-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Narrow screens: bring arrows into header row */
+@media (max-width: 799px) {
+    .artist-carousel__arrows {
+        position: static;
+        transform: none;
+    }
+}

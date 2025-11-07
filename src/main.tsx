@@ -6,6 +6,8 @@ import "./styles/globalStyles.css";
 import App from "./App";
 import {DeviceProvider} from "./state/provider/DeviceProvider";
 import Header from "./components/Header";
+import {Footer} from "./components/Footer";
+import {BrowserRouter} from "react-router-dom";
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {
@@ -14,9 +16,12 @@ if (!rootEl) {
 
 createRoot(rootEl).render(
     <StrictMode>
-        <DeviceProvider>
-            <Header />
-            <App />
-        </DeviceProvider>
+        <BrowserRouter>
+            <DeviceProvider>
+                <Header />
+                <App />
+                <Footer />
+            </DeviceProvider>
+        </BrowserRouter>
     </StrictMode>
 );
