@@ -1,3 +1,7 @@
+Download libs:
+npm i framer-motion
+
+
 Use of typescript: 
 
 Short about typescript:
