@@ -1,11 +1,14 @@
-// src/components/AuctionItem.jsx
 import React, { useState } from 'react';
 
-export default function AddToCart(
-    { title, price }: { title: string; price: number }) {
-  const [inCart, setInCart] = useState(false);
+interface AddToCartProps {
+  title: string;
+  price: number;
+}
 
-  const handleAddToCart = () => {
+export default function AddToCart({ title, price }: AddToCartProps) {
+  const [inCart, setInCart] = useState<boolean>(false);
+
+  const handleAddToCart = (): void => {
     setInCart(true);
   };
 
@@ -21,3 +24,4 @@ export default function AddToCart(
     </div>
   );
 }
+

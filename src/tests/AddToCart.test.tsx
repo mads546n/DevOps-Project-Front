@@ -1,23 +1,22 @@
-// src/components/AuctionItem.test.jsx
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import AddToCart from './AddToCartTestStub';
+import AuctionItem from './AddToCartMock';
 
 describe('AuctionItem Component', () => {
   it('adds auction to cart when "Add to Cart" is clicked (Usecase: #8)', () => {
-    render(<AddToCart title="Vintage Painting" price={500} />);
+    render(<AuctionItem title="Vintage Painting" price={500} />);
 
-    const addButton = screen.getByRole('button', { name: /add to cart/i });
+    const addButton = screen.getByRole<HTMLButtonElement>('button', { name: /add to cart/i });
 
-    //Prereq
+    // Prereq: before clicking
     expect(addButton).toBeEnabled();
     expect(screen.queryByText(/this auction has been added/i)).toBeNull();
 
-    //Event
+    // Event: user clicks button
     fireEvent.click(addButton);
 
-    //End state
+    // End state: after clicking
     expect(addButton).toBeDisabled();
     expect(addButton).toHaveTextContent(/added to cart/i);
     expect(

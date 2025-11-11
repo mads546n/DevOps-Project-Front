@@ -1,16 +1,18 @@
-// AuctionPrice.jsx
-import React, { useState } from 'react';
-
+import React, { useState, ChangeEvent } from 'react';
 
 export default function AuctionBetButton() {
-  const [price, setPrice] = useState('');
-  const [submittedPrice, setSubmittedPrice] = useState(null);
+  const [price, setPrice] = useState<string>('');
+  const [submittedPrice, setSubmittedPrice] = useState<number | null>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     const numericPrice = parseFloat(price);
     if (!isNaN(numericPrice)) {
       setSubmittedPrice(numericPrice);
     }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPrice(e.target.value);
   };
 
   return (
@@ -19,10 +21,11 @@ export default function AuctionBetButton() {
         type="number"
         placeholder="Enter your bid"
         value={price}
-        onChange={(e) => setPrice(e.target.value)}
+        onChange={handleChange}
       />
       <button onClick={handleSubmit}>Submit Bid</button>
       {submittedPrice !== null && <p>Current price: ${submittedPrice}</p>}
     </div>
   );
 }
+
