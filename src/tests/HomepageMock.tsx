@@ -1,4 +1,12 @@
 import React from 'react';
+/*
+
+import { useLocation } from 'react-router-dom';
+
+export default function CheckHomepage(): JSX.Element {
+  const location = useLocation();
+  const isHomepage = location.pathname === '/Home';
+*/
 
 export default function CheckHomepage(): JSX.Element {
   const isHomepage = window.location.pathname === '/Home';
