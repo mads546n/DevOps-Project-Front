@@ -1,6 +1,9 @@
 Download libs:
 npm i framer-motion
 npm i @tanstack/react-query zod
+npm i @tanstack/react-query-persist-client
+npm i @tanstack/query-sync-storage-persister
+
 
 
 Use of typescript: 

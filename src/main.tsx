@@ -8,17 +8,17 @@ import {DeviceProvider} from "./state/provider/DeviceProvider";
 import Header from "./components/Header";
 import {Footer} from "./components/Footer";
 import {BrowserRouter} from "react-router-dom";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {QueryClientProvider} from "@tanstack/react-query";
+import {queryClient} from "./lib/queryClient";
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {
     throw new Error('Root element with id="root" not found');
 }
-const queryClient = new QueryClient();
 
 createRoot(rootEl).render(
     <StrictMode>
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}> {/*fetching data*/}
             <BrowserRouter>
                 <DeviceProvider>
                     <Header />
