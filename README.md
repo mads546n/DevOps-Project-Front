@@ -1,5 +1,6 @@
 Download libs:
 npm i framer-motion
+npm i @tanstack/react-query zod
 
 
 Use of typescript: 
