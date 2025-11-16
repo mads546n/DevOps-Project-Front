@@ -1,20 +1,19 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import AuctionBetButton from './AuctionBetTestStub';
 import { describe, it, expect } from 'vitest';
-
+import AuctionBetButton from './AuctionBetMock';
 
 describe('AuctionPrice Component', () => {
   it('updates auction price on submit (Usecase: #3)', () => {
     render(<AuctionBetButton />);
-    const input = screen.getByPlaceholderText(/enter your bid/i);
-    const button = screen.getByRole('button', { name: /submit bid/i });
+    const input = screen.getByPlaceholderText<HTMLInputElement>(/enter your bid/i);
+    const button = screen.getByRole<HTMLButtonElement>('button', { name: /submit bid/i });
 
-    //Event
+    // Event
     fireEvent.change(input, { target: { value: '150' } });
     fireEvent.click(button);
 
-    //End state
+    // End state
     expect(screen.getByText(/current price: \$150/i)).toBeInTheDocument();
   });
 });
