@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import {Footer} from "./components/Footer";
 import {BrowserRouter} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import AppRouter from "./components/AppRouter";
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {
@@ -21,9 +22,10 @@ createRoot(rootEl).render(
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
                 <DeviceProvider>
-                    <Header />
+                    <AppRouter />
+                    {/* <Header />
                     <App />
-                    <Footer />
+                    <Footer /> */}
                 </DeviceProvider>
             </BrowserRouter>
         </QueryClientProvider>
