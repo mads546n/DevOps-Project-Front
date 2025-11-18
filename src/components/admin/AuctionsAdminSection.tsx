@@ -1,0 +1,63 @@
+import React from "react";
+
+export type AuctionStatus = "draft" | "scheduled" | "live" | "ended" | "cancelled";
+
+export interface AdminAuction {
+    id: number | string;
+    title: string;
+    artistName: string;
+    status: AuctionStatus;
+    currentBid: number | null;
+    endsAt: string; // formatted string
+}
+
+interface Props {
+    auctions: AdminAuction[];
+}
+
+export function AuctionsAdminSection({ auctions }: Props) {
+    return (
+        <section className="admin-section">
+            <header className="admin-section__header">
+                <h2>Auktioner</h2>
+                <span className="admin-section__count">{auctions.length}</span>
+            </header>
+
+            <div className="admin-table admin-table--auctions">
+                <div className="admin-table__head">
+                    <span>Værk</span>
+                    <span>Kunstner</span>
+                    <span>Status</span>
+                    <span>Aktuelt bud</span>
+                    <span>Slutter</span>
+                </div>
+                <div className="admin-table__body">
+                    {auctions.map((a) => (
+                        <div key={a.id} className="admin-table__row">
+                            <span>{a.title}</span>
+                            <span>{a.artistName}</span>
+                            <span>{mapStatus(a.status)}</span>
+                            <span>{a.currentBid != null ? `${a.currentBid.toLocaleString("da-DK")} DKK` : "—"}</span>
+                            <span>{a.endsAt}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function mapStatus(status: AuctionStatus): string {
+    switch (status) {
+        case "draft":
+            return "Kladde";
+        case "scheduled":
+            return "Planlagt";
+        case "live":
+            return "Live";
+        case "ended":
+            return "Afsluttet";
+        case "cancelled":
+            return "Annulleret";
+    }
+}
