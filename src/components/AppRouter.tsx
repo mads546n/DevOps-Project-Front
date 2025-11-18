@@ -4,6 +4,7 @@ import Layout from "./Layout";
 // Pages
 import App from "./../App";
 import Auktioner from "./../Auktioner";
+import AdminGate from "../pages/AdminGate";
 // import OmOs from "./../OmOs";
 //import Search from "./../Search";
 //import Login from "./../Login";
@@ -17,6 +18,7 @@ export default function AppRouter() {
         {/* <Route path="/om-os" element={<OmOs />} />
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<Login />} /> */}
+          <Route path="/admin" element={<AdminGate />} />
       </Route>
     </Routes>
   );
