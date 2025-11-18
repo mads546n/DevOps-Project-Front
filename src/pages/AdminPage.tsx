@@ -34,6 +34,7 @@ import {
     SystemHealthSection,
     SystemHealth,
 } from "../components/admin/SystemHealthSection";
+import {PanelStatus} from "../components/admin/PanelStatus";
 
 // existing mocks (shortened if you already have them)
 const mockArtists: AdminArtist[] = [
@@ -159,13 +160,18 @@ const mockHealth: SystemHealth = {
     version: "1.0.3",
     lastDeployAt: "2025-11-14 13:45",
 };
+const refetchAll = () => {
+    // later this will trigger React Query invalidations:
+    // queryClient.invalidateQueries();
+    console.log("Refreshing admin data…");
+};
 
 export default function AdminPage() {
     return (
         <main className="admin-page">
             <header className="admin-page__header">
                 <h1>Adminpanel</h1>
-                <p>Overblik over kunstnere, brugere, auktioner og systemstatus.</p>
+                <PanelStatus onRefresh={refetchAll} />
             </header>
 
             <div className="admin-page__grid">

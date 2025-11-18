@@ -23,7 +23,7 @@ createRoot(rootEl).render(
             <BrowserRouter>
                 <DeviceProvider>
                     <Header />
-                    <AdminPage />
+                        <App />
                     <Footer />
                 </DeviceProvider>
             </BrowserRouter>

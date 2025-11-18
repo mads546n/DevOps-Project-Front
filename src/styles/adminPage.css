@@ -83,3 +83,86 @@
     font-size: 0.8rem;
     opacity: 0.7;
 }
+
+.admin-section {
+    background: var(--bg-color);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--text-color) 10%, transparent);
+    margin-bottom: 1rem;
+}
+
+/* Header / toggle */
+.admin-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-section__toggle {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.admin-section__title {
+    font-weight: 600;
+}
+
+.admin-section__count {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.admin-section__chevron {
+    font-size: 0.8rem;
+}
+
+.admin-section__body {
+    margin-top: 0.75rem;
+}
+
+/* collapsed state */
+.admin-section--collapsed {
+    padding-bottom: 0.5rem;
+}
+
+.admin-section--collapsed .admin-section__body {
+    display: none;
+}
+
+.system-health__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* base cell helper (optional) */
+.admin-table__cell {
+    min-width: 0; /* important inside grid/flex */
+}
+
+/* truncate with ellipsis */
+.admin-table__cell--ellipsis {
+    display: inline-block;
+    max-width: 220px;          /* tweak to fit your layout */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
+
+.admin-panel-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.admin-panel-status button {
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+}

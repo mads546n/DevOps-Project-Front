@@ -1,9 +1,11 @@
+// src/components/admin/SystemHealthSection.tsx
 import React from "react";
+import { AdminSectionShell } from "./AdminSectionShell";
 
 export interface SystemHealth {
     apiStatus: "up" | "degraded" | "down";
     dbStatus: "up" | "degraded" | "down";
-    errorRate1h: number;        // 0–1 (e.g. 0.02 = 2 %)
+    errorRate1h: number;
     requestsPerMinute: number;
     version: string;
     lastDeployAt: string;
@@ -17,17 +19,13 @@ export function SystemHealthSection({ health }: Props) {
     const errorPct = Math.round(health.errorRate1h * 100);
 
     return (
-        <section className="admin-section">
-            <header className="admin-section__header">
-                <h2>Systemstatus</h2>
-            </header>
-
+        <AdminSectionShell title="Systemstatus" defaultCollapsed={false}>
             <div className="system-health">
                 <div className="system-health__row">
                     <span>API</span>
                     <span className={statusClass(health.apiStatus)}>
-            {mapStatus(health.apiStatus)}
-          </span>
+                        {mapStatus(health.apiStatus)}
+                    </span>
                 </div>
                 <div className="system-health__row">
                     <span>Database</span>
@@ -52,7 +50,7 @@ export function SystemHealthSection({ health }: Props) {
                     <span>{health.lastDeployAt}</span>
                 </div>
             </div>
-        </section>
+        </AdminSectionShell>
     );
 }
 

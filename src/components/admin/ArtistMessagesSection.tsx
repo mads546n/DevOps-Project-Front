@@ -1,4 +1,6 @@
+// src/components/admin/ArtistMessagesSection.tsx
 import React from "react";
+import { AdminSectionShell } from "./AdminSectionShell";
 
 export type MessageStatus = "new" | "open" | "closed";
 
@@ -8,7 +10,7 @@ export interface ArtistMessage {
     artistName: string;
     subject: string;
     preview: string;
-    createdAt: string; // formatted string
+    createdAt: string;
     status: MessageStatus;
     unread: boolean;
 }
@@ -19,12 +21,11 @@ interface Props {
 
 export function ArtistMessagesSection({ messages }: Props) {
     return (
-        <section className="admin-section">
-            <header className="admin-section__header">
-                <h2>Kunstner-beskeder</h2>
-                <span className="admin-section__count">{messages.length}</span>
-            </header>
-
+        <AdminSectionShell
+            title="Kunstner-beskeder"
+            count={messages.length}
+            defaultCollapsed={false}
+        >
             <div className="admin-table admin-table--messages">
                 <div className="admin-table__head">
                     <span>Status</span>
@@ -55,6 +56,6 @@ export function ArtistMessagesSection({ messages }: Props) {
                     ))}
                 </div>
             </div>
-        </section>
+        </AdminSectionShell>
     );
 }
