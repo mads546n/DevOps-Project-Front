@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/headerStyles.css";
-import {useDevice} from "../state/hook/useDevice";
+import { useDevice } from "../state/hook/useDevice";
 
 type HeaderLink = { href: string; label: string };
 
@@ -30,7 +31,7 @@ export default function Header() {
             className={`site-header ${elevated ? "is-elevated" : ""}`}
             role="banner"
         >
-            {/* === DEV INFO BAR (TEMPORARY WORK-TOOL === */}
+            {/* === DEV INFO BAR === */}
             <div className="dev-info-bar">
                 <span>
                     <strong>Device:</strong> {device.device}
@@ -45,29 +46,31 @@ export default function Header() {
                     <strong>Height:</strong> {device.height}px
                 </span>
             </div>
-            {/* === END DEV INFO BAR (TEMPORARY WORK-TOOL === */}
 
             <nav className="site-header__nav" aria-label="Hovednavigation">
+                {/* LEFT LINKS */}
                 <ul className="nav-left">
                     {leftLinks.map((l) => (
                         <li key={l.href}>
-                            <a className="nav-link" href={l.href}>
+                            <Link className="nav-link" to={l.href}>
                                 {l.label}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                 </ul>
 
-                <a className="brand" href="/" aria-label="TETRA ART – Forside">
+                {/* BRAND */}
+                <Link className="brand" to="/" aria-label="TETRA ART – Forside">
                     <span style={{ color: "#7F170E" }}>TETRA ART</span>
-                </a>
+                </Link>
 
+                {/* RIGHT LINKS */}
                 <ul className="nav-right">
                     {rightLinks.map((l) => (
                         <li key={l.href}>
-                            <a className="nav-link" href={l.href}>
+                            <Link className="nav-link" to={l.href}>
                                 {l.label}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                 </ul>
