@@ -1,12 +1,9 @@
+// src/config/env.ts
 const { VITE_API_URL } = import.meta.env;
 
 export const ENV = {
-    API_URL: (VITE_API_URL as string) || "http://localhost:8080",
-    // Feature flags if needed:
+    API_URL:
+        (VITE_API_URL as string | undefined) ??
+        "https://tetragallery-1084879122358.europe-west1.run.app",
     ENABLE_LOGGING: import.meta.env.MODE !== "production",
 };
-
-/*
-In .env.local: when deploying to production:
-VITE_API_URL=https://api.ourdomain.com
-* */

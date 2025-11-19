@@ -1,26 +1,37 @@
-//src/api/services/art.service.ts
+// src/api/services/art.service.ts
 import type { ArtItem } from "../../state/types";
 import { http } from "../../lib/http";
-import { safe } from "../utils/safeFetch";
-import {PLACEHOLDER_ART_ITEM} from "../../state/placeholders/artCard.placeholder";
 
-type ArtDTO = {
-    id: number | string;
-    title: string;
-    price: number;
-    imageUrl?: string;
+export type ArtListOptions = {
+    page?: number;
+    size?: number;
 };
 
-async function _fetchArtList(): Promise<ArtItem[]> {
-    const data = await http<ArtDTO[]>("/api/art");
-    return data.map((art) => ({
-        id: art.id,
-        title: art.title,
-        price: art.price,
-        imageUrl: art.imageUrl,
-    }));
-}
+// matcher ProductDtoGet fra OpenAPI
+type ProductDtoGet = {
+    id: number;
+    description: string;
+    artistName: string;
+    tags: string[];
+};
 
-export function fetchArtList(): Promise<ArtItem[]> {
-    return safe(_fetchArtList, [PLACEHOLDER_ART_ITEM]);
+export async function fetchArtList(
+    options: ArtListOptions = {}
+): Promise<ArtItem[]> {
+    const params = new URLSearchParams();
+
+    if (options.page != null) params.set("page", String(options.page));
+    if (options.size != null) params.set("size", String(options.size));
+
+    const query = params.toString();
+    const path = query ? `/api/art?${query}` : "/api/art";
+
+    const data = await http<ProductDtoGet[]>(path);
+
+    return data.map<ArtItem>((p) => ({
+        id: p.id,
+        title: p.description,   // vi bruger description som titel
+        // price: undefined,    // ingen pris endnu i API'et
+        // imageUrl: undefined, // ingen imageUrl endnu
+    }));
 }

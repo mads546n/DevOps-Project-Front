@@ -12,8 +12,8 @@ export default function ArtCard({ item, onClick }: ArtCardProps) {
     const seedRef = useRef(Math.floor(Math.random() * 10000));
 
     const imageSrc = item.imageUrl ?? `/placeholderImage.png`;
-
     const isPlaceholder = item.isPlaceholder === true;
+    const hasPrice = typeof item.price === "number" && item.price > 0;
 
     return (
         <motion.article
@@ -36,19 +36,24 @@ export default function ArtCard({ item, onClick }: ArtCardProps) {
             <div className="artcard__content">
                 <h4 className="artcard__title">{item.title}</h4>
 
-                {/* Only show auction data for real items */}
-                {!isPlaceholder && (
+                {/* Kun prisblok hvis det IKKE er placeholder og vi HAR en pris */}
+                {!isPlaceholder && hasPrice && (
                     <>
                         <p className="artcard__info">DKK inkl. salær og gebyr</p>
 
                         <div className="artcard__price-row">
                             <span className="artcard__label">Nuværende bud</span>
                             <strong className="artcard__price">
-                                {item.price.toLocaleString("da-DK")}
+                                {item.price!.toLocaleString("da-DK")}
                             </strong>
                         </div>
                     </>
                 )}
+                {!isPlaceholder && !hasPrice && (
+                    <div className="artcard__info">
+                        Ingen bud endnu
+                    </div>
+                    )}
             </div>
         </motion.article>
     );

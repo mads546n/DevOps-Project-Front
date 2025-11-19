@@ -2,7 +2,7 @@
 export interface ArtItem {
     id: number | string;
     title: string;
-    price: number;
+    price?: number;
     imageUrl?: string | undefined;
     isPlaceholder?: boolean;
 }

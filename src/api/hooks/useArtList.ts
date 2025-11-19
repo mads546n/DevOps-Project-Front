@@ -1,12 +1,12 @@
 // src/api/hooks/useArtList.ts
 import { useQuery } from "@tanstack/react-query";
-import { fetchArtList } from "../services/art.service";
-import {ArtItem} from "../../state/types";
+import type { ArtItem } from "../../state/types";
+import { fetchArtList, type ArtListOptions } from "../services/art.service";
 
-export function useArtList() {
-    return useQuery<ArtItem[]>({
-        queryKey: ["artList"],
-        queryFn: fetchArtList,
-        staleTime: 600_000, // 6 minuter – juster efter behov
+export function useArtList(options: ArtListOptions = {}) {
+    return useQuery<ArtItem[], Error>({
+        queryKey: ["artList", options],      // cache pr. kombination
+        queryFn: () => fetchArtList(options),
+        staleTime: 600_000,
     });
 }
