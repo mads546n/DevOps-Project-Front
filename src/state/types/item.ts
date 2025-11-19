@@ -5,6 +5,9 @@ export interface ArtItem {
     /** Unique identifier for the artwork */
     id: string | number;
 
+    /** Tag associated with the artwork (e.g., "litografi", "akvarel") */
+    tag: string;
+    
     /** URL or local path to the artwork image */
     imageUrl: string;
 
