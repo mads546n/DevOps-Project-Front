@@ -23,7 +23,7 @@ function App() {
         <>
             <SubHeader />
 
-            <h2 className="red-text title">Nyeste auktioner</h2>
+            <h2 className="red-text title">Mød Artisterne</h2>
 
             <ArtistCarousel data={carouselData} />
             <LandingInfo />
