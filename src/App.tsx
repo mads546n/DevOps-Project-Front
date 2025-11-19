@@ -8,17 +8,16 @@ function App() {
     const data: ArtistCarouselData = {
         artistName: "Karl Larhenhaus",
         items: [
-            { id: 1, imageUrl: "/images/1.jpg", title: "Forbandet fortid – Litografi", price: 30000 },
-            { id: 2, imageUrl: "/images/2.jpg", title: "Skyggernes dans – Akvarel", price: 28500 },
-            { id: 3, imageUrl: "/images/3.jpg", title: "Lysets kontrast – Olie på lærred", price: 31000 },
-            { id: 4, imageUrl: "/images/4.jpg", title: "Drømmenes form – Grafik", price: 29500 },
-            { id: 5, imageUrl: "/images/5.jpg", title: "Sansens rum – Collage", price: 34000 },
-            { id: 6, imageUrl: "/images/6.jpg", title: "Fragmenteret virkelighed – Tryk", price: 27500 },
-            { id: 7, imageUrl: "/images/7.jpg", title: "Farvernes spil – Litografi", price: 32500 },
-            { id: 8, imageUrl: "/images/8.jpg", title: "Tidens ekko – Akryl", price: 35500 },
+            { id: 1, tag: "Litografi", imageUrl: "/images/1.jpg", title: "Forbandet fortid – Litografi", price: 30000 },
+            { id: 2, tag: "Akvarel", imageUrl: "/images/2.jpg", title: "Skyggernes dans – Akvarel", price: 28500 },
+            { id: 3, tag: "Olie på lærred", imageUrl: "/images/3.jpg", title: "Lysets kontrast – Olie på lærred", price: 31000 },
+            { id: 4, tag: "Grafik", imageUrl: "/images/4.jpg", title: "Drømmenes form – Grafik", price: 29500 },
+            { id: 5, tag: "Collage", imageUrl: "/images/5.jpg", title: "Sansens rum – Collage", price: 34000 },
+            { id: 6, tag: "Tryk", imageUrl: "/images/6.jpg", title: "Fragmenteret virkelighed – Tryk", price: 27500 },
+            { id: 7, tag: "Litografi", imageUrl: "/images/7.jpg", title: "Farvernes spil – Litografi", price: 32500 },
+            { id: 8, tag: "Akryl", imageUrl: "/images/8.jpg", title: "Tidens ekko – Akryl", price: 35500 },
         ],
     };
-
   return (
     <>
         <SubHeader />
