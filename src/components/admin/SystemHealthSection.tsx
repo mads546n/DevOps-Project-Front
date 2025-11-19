@@ -1,15 +1,7 @@
 // src/components/admin/SystemHealthSection.tsx
 import React from "react";
 import { AdminSectionShell } from "./AdminSectionShell";
-
-export interface SystemHealth {
-    apiStatus: "up" | "degraded" | "down";
-    dbStatus: "up" | "degraded" | "down";
-    errorRate1h: number;
-    requestsPerMinute: number;
-    version: string;
-    lastDeployAt: string;
-}
+import {SystemHealth} from "../../state/types";
 
 interface Props {
     health: SystemHealth;

@@ -1,12 +1,7 @@
 // src/components/admin/TagsAdminSection.tsx
 import React from "react";
 import {AdminSectionShell} from "./AdminSectionShell";
-
-export interface AdminTag {
-    id: number | string;
-    name: string;     // e.g. "#abstrakt"
-    usageCount: number;
-}
+import {AdminTag} from "../../state/types";
 
 interface Props {
     tags: AdminTag[];

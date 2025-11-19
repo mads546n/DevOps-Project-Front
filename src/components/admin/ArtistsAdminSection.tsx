@@ -1,14 +1,7 @@
 // src/components/admin/ArtistsAdminSection.tsx
 import React from "react";
 import { AdminSectionShell } from "./AdminSectionShell";
-
-export interface AdminArtist {
-    id: number | string;
-    name: string;
-    email: string;
-    createdAt: string;
-    active: boolean;
-}
+import {AdminArtist} from "../../state/types";
 
 interface Props {
     artists: AdminArtist[];

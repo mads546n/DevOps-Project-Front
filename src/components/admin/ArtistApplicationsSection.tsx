@@ -1,14 +1,7 @@
 // src/components/admin/ArtistApplicationsSection.tsx
 import React from "react";
 import { AdminSectionShell } from "./AdminSectionShell";
-
-export interface ArtistApplication {
-    id: number | string;
-    name: string;
-    email: string;
-    appliedAt: string;
-    portfolioUrl?: string;
-}
+import {ArtistApplication} from "../../state/types";
 
 interface Props {
     applications: ArtistApplication[];

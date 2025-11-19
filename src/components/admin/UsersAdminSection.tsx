@@ -1,16 +1,6 @@
 import React from "react";
 import {AdminSectionShell} from "./AdminSectionShell";
-
-export type UserRole = "customer" | "artist" | "admin" | "support";
-
-export interface AdminUser {
-    id: number | string;
-    name: string;
-    email: string;
-    role: UserRole;
-    createdAt: string;
-    active: boolean;
-}
+import {AdminUser, UserRole} from "../../state/types";
 
 interface Props {
     users: AdminUser[];

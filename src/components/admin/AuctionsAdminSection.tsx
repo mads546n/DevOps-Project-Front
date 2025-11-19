@@ -1,16 +1,8 @@
 import React from "react";
 import {AdminSectionShell} from "./AdminSectionShell";
+import {AdminAuction} from "../../state/types";
 
 export type AuctionStatus = "draft" | "scheduled" | "live" | "ended" | "cancelled";
-
-export interface AdminAuction {
-    id: number | string;
-    title: string;
-    artistName: string;
-    status: AuctionStatus;
-    currentBid: number | null;
-    endsAt: string; // formatted string
-}
 
 interface Props {
     auctions: AdminAuction[];

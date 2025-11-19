@@ -1,19 +1,7 @@
 // src/components/admin/ArtistMessagesSection.tsx
 import React from "react";
 import { AdminSectionShell } from "./AdminSectionShell";
-
-export type MessageStatus = "new" | "open" | "closed";
-
-export interface ArtistMessage {
-    id: number | string;
-    artistId: number | string;
-    artistName: string;
-    subject: string;
-    preview: string;
-    createdAt: string;
-    status: MessageStatus;
-    unread: boolean;
-}
+import {ArtistMessage} from "../../state/types";
 
 interface Props {
     messages: ArtistMessage[];

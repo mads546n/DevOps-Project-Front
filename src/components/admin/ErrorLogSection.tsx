@@ -1,15 +1,8 @@
 // src/components/admin/ErrorLogSection.tsx
 import React from "react";
 import { AdminSectionShell } from "./AdminSectionShell";
+import {ErrorLogEntry} from "../../state/types";
 
-export interface ErrorLogEntry {
-    id: number | string;
-    timestamp: string;
-    userId?: string | number;
-    path: string;
-    message: string;
-    statusCode?: number;
-}
 
 interface Props {
     errors: ErrorLogEntry[];
