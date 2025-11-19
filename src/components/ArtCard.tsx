@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import type { ArtItem } from "../state/types/item";
+import type { ArtItem } from "../state/types";
 import "../styles/artCard.css";
-import {useRef} from "react";
+import { useRef } from "react";
 
 type ArtCardProps = {
     item: ArtItem;
@@ -9,8 +9,11 @@ type ArtCardProps = {
 };
 
 export default function ArtCard({ item, onClick }: ArtCardProps) {
-    //just for placeholder-images (temp)
     const seedRef = useRef(Math.floor(Math.random() * 10000));
+
+    const imageSrc = item.imageUrl ?? `/placeholderImage.png`;
+
+    const isPlaceholder = item.isPlaceholder === true;
 
     return (
         <motion.article
@@ -22,25 +25,30 @@ export default function ArtCard({ item, onClick }: ArtCardProps) {
             tabIndex={0}
         >
             <div className="artcard__image-wrapper">
-                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                 <img
-                    src={`https://picsum.photos/400/400?random=${seedRef.current}`}
+                    src={imageSrc}
                     loading="lazy"
                     className="artcard__image"
-                    alt="Artwork"/>
+                    alt={item.title}
+                />
             </div>
 
             <div className="artcard__content">
                 <h4 className="artcard__title">{item.title}</h4>
 
-                <p className="artcard__info">DKK inkl. salær og gebyr</p>
+                {/* Only show auction data for real items */}
+                {!isPlaceholder && (
+                    <>
+                        <p className="artcard__info">DKK inkl. salær og gebyr</p>
 
-                <div className="artcard__price-row">
-                    <span className="artcard__label">Nuværende bud</span>
-                    <strong className="artcard__price">
-                        {item.price.toLocaleString("da-DK")}
-                    </strong>
-                </div>
+                        <div className="artcard__price-row">
+                            <span className="artcard__label">Nuværende bud</span>
+                            <strong className="artcard__price">
+                                {item.price.toLocaleString("da-DK")}
+                            </strong>
+                        </div>
+                    </>
+                )}
             </div>
         </motion.article>
     );

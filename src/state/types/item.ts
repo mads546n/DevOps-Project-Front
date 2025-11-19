@@ -1,28 +1,13 @@
-/**
- * Represents a single artwork item shown in the carousel.
- */
+// src/state/types/item.ts
 export interface ArtItem {
-    /** Unique identifier for the artwork */
-    id: string | number;
-
-    /** URL or local path to the artwork image */
-    imageUrl: string;
-
-    /** Artwork title (e.g., "Forbandet fortid – Litografi") */
+    id: number | string;
     title: string;
-
-    /** Artwork price in DKK (e.g., 30000) */
     price: number;
+    imageUrl?: string | undefined;
+    isPlaceholder?: boolean;
 }
 
-/**
- * Represents a collection of artworks by a specific artist.
- * Each artist will have one carousel section.
- */
 export interface ArtistCarousel {
-    /** Artist's display name (e.g., "Karl Larhenhaus") */
     artistName: string;
-
-    /** List of artworks belonging to this artist */
     items: ArtItem[];
 }
