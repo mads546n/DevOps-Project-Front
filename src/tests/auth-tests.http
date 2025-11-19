@@ -1,0 +1,87 @@
+### 0. Reset database (clean slate)
+DELETE http://localhost:8080/api/reset/all
+
+### 1. Create customer
+POST http://localhost:8080/api/customer/create
+Content-Type: application/json
+
+{
+  "name": "Bob",
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+### 2. Login as Bob (Costumer)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+### 3. Wrong password should fail
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "WRONG"
+}
+
+### 4. Unknown email should fail
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "nobody@example.com",
+  "password": "1234"
+}
+
+### 5. Create artist
+POST http://localhost:8080/api/artist/create
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "abcd"
+}
+
+### 6. Login as Alice (ARTIST)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "abcd"
+}
+
+
+### 7. Promote Bob (userId = 1) to ARTIST
+POST http://localhost:8080/api/admin/promote/1
+
+### 8 Login Bob again after promotion (should now be ARTIST)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+### 9. Delete Bob again (cleanup)
+# Use the customerId from step 1 response (e.g. 1)
+DELETE http://localhost:8080/api/customer/1
+
+### 10. Login after delete should fail
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+
+

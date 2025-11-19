@@ -6,7 +6,7 @@ import App from "./../App";
 import Auktioner from "./../Auktioner";
 // import OmOs from "./../OmOs";
 //import Search from "./../Search";
-//import Login from "./../Login";
+import Login from "../pages/Login";
 
 export default function AppRouter() {
   return (
@@ -15,8 +15,8 @@ export default function AppRouter() {
         <Route path="/" element={<App />} />
         <Route path="/auktioner" element={<Auktioner />} />
         {/* <Route path="/om-os" element={<OmOs />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/login" element={<Login />} /> */}
+        <Route path="/search" element={<Search />} /> */
+        <Route path="/login" element={<Login />} />}
       </Route>
     </Routes>
   );
