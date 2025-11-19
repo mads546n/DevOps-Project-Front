@@ -1,6 +1,11 @@
 Download libs:
 npm i framer-motion
 npm i @tanstack/react-query zod
+npm i @tanstack/react-query-persist-client
+npm i @tanstack/query-sync-storage-persister
+
+Tilgå adminpanel: localhost/admin (ingen links, hvilket der heller ikke skal være)
+kode: 1234
 
 
 Use of typescript: 
