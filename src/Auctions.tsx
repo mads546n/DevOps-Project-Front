@@ -6,7 +6,7 @@ import type { ArtistCarousel as ArtistCarouselData } from "./state/types/item";
 
 function Auktioner() {
     const data: ArtistCarouselData = {
-        artistName: "KarlpP Larhenhaus",
+        artistName: "Karl Larhenhaus",
         items: [
             { id: 1, imageUrl: "/images/1.jpg", title: "Forbandet fortid – Litografi", price: 30000 },
             { id: 2, imageUrl: "/images/2.jpg", title: "Skyggernes dans – Akvarel", price: 28500 },

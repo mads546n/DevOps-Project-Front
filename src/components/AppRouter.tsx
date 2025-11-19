@@ -3,7 +3,7 @@ import Layout from "./Layout";
 
 // Pages
 import App from "./../App";
-import Auktioner from "./../Auktioner";
+import Auktioner from "../Auctions";
 // import OmOs from "./../OmOs";
 //import Search from "./../Search";
 //import Login from "./../Login";
