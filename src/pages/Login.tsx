@@ -12,7 +12,7 @@ export default function Login() {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // Restore user from localStorage on first render (optional but nice)
+    // Restore user from localStorage on first render
     useEffect(() => {
         if (typeof window === "undefined") return;
         const stored = window.localStorage.getItem("loggedInUser");
@@ -44,9 +44,12 @@ export default function Login() {
                 throw new Error("Forkert email eller adgangskode");
             }
 
-            const data: LoggedInUser = await res.json();
+            const data = (await res.json()) as LoggedInUser;
+
             setUser(data);
             window.localStorage.setItem("loggedInUser", JSON.stringify(data));
+            window.localStorage.setItem("authToken", data.token);
+
             setPassword("");
         } catch (err: any) {
             setError(err.message ?? "Login fejlede");
@@ -60,8 +63,32 @@ export default function Login() {
         setEmail("");
         setPassword("");
         setError(null);
+
         if (typeof window !== "undefined") {
             window.localStorage.removeItem("loggedInUser");
+            window.localStorage.removeItem("authToken");
+        }
+    }
+
+    // Helper for admin promote / revoke calls
+    async function callAdmin(url: string) {
+        if (!user) return;
+
+        setError(null);
+
+        try {
+            const res = await fetch(`${API_BASE}${url}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error(`Admin-kald fejlede (${res.status})`);
+            }
+        } catch (err: any) {
+            setError(err.message ?? "Admin-kald fejlede");
         }
     }
 
@@ -107,9 +134,9 @@ export default function Login() {
                 <div className="login-hint">
                     <p>Systemet returnerer rolle fra backend:</p>
                     <ul>
-                        <li><strong>USER</strong> – almindelig køber</li>
+                        <li><strong>COSTUMER</strong> – almindelig køber</li>
                         <li><strong>ARTIST</strong> – sælger kunstværker</li>
-                        <li><strong>ADMIN</strong> – kan give kunstner-rettigheder</li>
+                        <li><strong>ADMIN</strong> – kan give/fjerne kunstner-rettigheder</li>
                     </ul>
                 </div>
             </section>
@@ -132,7 +159,6 @@ export default function Login() {
                 <div className="role-section">
                     <h2>Bruger-dashboard</h2>
                     <p>Du kan byde på auktioner og se dine køb.</p>
-                    {}
                 </div>
             )}
 
@@ -140,22 +166,106 @@ export default function Login() {
                 <div className="role-section">
                     <h2>Kunstner-dashboard</h2>
                     <p>Du kan oprette nye kunstværker og starte auktioner.</p>
-                    {}
                 </div>
             )}
 
             {user.role === "ADMIN" && (
                 <div className="role-section">
                     <h2>Admin-panel</h2>
-                    <p>
-                        Som admin kan du fx promovere en bruger til kunstner via{" "}
-                        <code>POST /api/admin/promote/&lt;userId&gt;</code>
-                    </p>
-                    <p>
-                    Placeholder til fremtidig UI.
-                    </p>
+                    <p>Som admin kan du give og fjerne kunstner-rettigheder for brugere.</p>
+
+                    <AdminUserSelector
+                        token={user.token}
+                        onPromote={(id) => callAdmin(`/api/admin/promote/${id}`)}
+                        onRevoke={(id) => callAdmin(`/api/admin/revoke/${id}`)}
+                        error={error}
+                    />
                 </div>
             )}
         </section>
+    );
+}
+
+function AdminUserSelector({
+                               token,
+                               onPromote,
+                               onRevoke,
+                               error,
+                           }: {
+    token: string;
+    onPromote: (id: number) => void;
+    onRevoke: (id: number) => void;
+    error: string | null;
+}) {
+    const [users, setUsers] = useState<
+        { id: number; name: string; email: string; role: string }[]
+    >([]);
+    const [selectedId, setSelectedId] = useState<number | null>(null);
+    const [loadError, setLoadError] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function fetchUsers() {
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/users`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (!res.ok) {
+                    throw new Error("Kunne ikke hente brugerliste");
+                }
+
+                const data = await res.json();
+                setUsers(data);
+
+                if (data.length > 0) {
+                    setSelectedId(data[0].id);
+                }
+            } catch (err: any) {
+                setLoadError(err.message);
+            }
+        }
+
+        fetchUsers();
+    }, [token]);
+
+    return (
+        <div className="admin-controls">
+            <label>
+                Vælg bruger
+                <select
+                    value={selectedId ?? ""}
+                    onChange={(e) => setSelectedId(Number(e.target.value))}
+                >
+                    {users.map((u) => (
+                        <option key={u.id} value={u.id}>
+                            #{u.id} — {u.name} ({u.email}) [{u.role}]
+                        </option>
+                    ))}
+                </select>
+            </label>
+
+            <div className="admin-buttons">
+                <button
+                    type="button"
+                    disabled={!selectedId}
+                    onClick={() => selectedId && onPromote(selectedId)}
+                >
+                    Gør til kunstner
+                </button>
+
+                <button
+                    type="button"
+                    disabled={!selectedId}
+                    onClick={() => selectedId && onRevoke(selectedId)}
+                >
+                    Fjern kunstner-rettigheder
+                </button>
+            </div>
+
+            {error && <p className="login-error">{error}</p>}
+            {loadError && <p className="login-error">{loadError}</p>}
+        </div>
     );
 }
