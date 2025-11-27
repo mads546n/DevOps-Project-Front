@@ -10,3 +10,4 @@ export default defineConfig({
       setupFiles: './src/tests/setupTests.js'
     }
 }); //as UserConfig);
+
