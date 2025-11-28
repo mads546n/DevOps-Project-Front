@@ -1,0 +1,278 @@
+############################################################
+### 0. RESET DATABASE
+############################################################
+DELETE http://localhost:8080/api/reset/all
+
+
+############################################################
+### CREATE USERS
+############################################################
+
+### 1. Create Bob (initial COSTUMER)
+POST http://localhost:8080/api/customer/create
+Content-Type: application/json
+
+{
+  "name": "Bob",
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+> {%
+    client.global.set("bob_user_id", String(response.body.userId));
+%}
+
+
+
+### 2. Bob login - expect SUCCESS (COSTUMER)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+
+
+############################################################
+### INVALID LOGIN TESTS
+############################################################
+
+### 3. Wrong password - expect 401
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "WRONG"
+}
+
+
+
+### 4. Wrong email - expect 401
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "nobody@example.com",
+  "password": "1234"
+}
+
+
+
+### 5a. Empty email - expect 401
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": "1234"
+}
+
+
+
+### 5b. Empty password - expect 401
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": ""
+}
+
+
+
+### 5c. Both empty - expect 401
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": ""
+}
+
+
+
+############################################################
+### ARTIST CREATION + LOGIN
+############################################################
+
+### 6. Create Alice (ARTIST)
+POST http://localhost:8080/api/artist/create
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "abcd"
+}
+
+
+
+### 7. Alice login - expect ARTIST
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "abcd"
+}
+
+
+
+############################################################
+### ADMIN SETUP
+############################################################
+
+### 8. Create Admin user (initially COSTUMER)
+POST http://localhost:8080/api/customer/create
+Content-Type: application/json
+
+{
+  "name": "Admin",
+  "email": "admin@example.com",
+  "password": "admin"
+}
+
+> {%
+    client.global.set("admin_user_id", String(response.body.userId));
+%}
+
+
+
+### 9. Promote Admin using DEV endpoint
+POST http://localhost:8080/api/dev/make-admin/{{admin_user_id}}
+
+
+
+### 10. Admin login - store token
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin"
+}
+
+> {%
+    client.global.set("admin_token", response.body.token);
+%}
+
+
+
+############################################################
+### ADMIN OPERATIONS
+############################################################
+
+### 11. Promote Bob → ARTIST
+POST http://localhost:8080/api/admin/promote/{{bob_user_id}}
+Authorization: Bearer {{admin_token}}
+
+
+
+### 12. Bob login → expect ARTIST
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+
+
+### 13. Revoke Bob → COSTUMER
+POST http://localhost:8080/api/admin/revoke/{{bob_user_id}}
+Authorization: Bearer {{admin_token}}
+
+
+
+### 14. Bob login → expect COSTUMER again
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+
+
+############################################################
+### SECURITY TESTS  (UNAUTHORIZED ACCESS)
+############################################################
+
+### 15. Admin endpoint WITHOUT token → expect 401/403
+POST http://localhost:8080/api/admin/promote/{{bob_user_id}}
+
+
+
+### 16. Admin endpoint WITH Bob's token (not admin) → expect 403
+
+### 16.1 Bob login (get token)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@example.com",
+  "password": "1234"
+}
+
+> {%
+    client.global.set("bob_token", response.body.token);
+%}
+
+### 16.2 Try admin endpoint with Bob's token
+POST http://localhost:8080/api/admin/promote/{{bob_user_id}}
+Authorization: Bearer {{bob_token}}
+
+
+
+############################################################
+### INVALID TOKEN TESTS
+############################################################
+
+### 17a. Missing "Bearer " prefix
+POST http://localhost:8080/api/admin/promote/{{bob_user_id}}
+Authorization: {{admin_token}}
+
+
+
+### 17b. Completely fake token
+POST http://localhost:8080/api/admin/promote/{{bob_user_id}}
+Authorization: Bearer INVALID.FAKE.TOKEN
+
+
+
+### 17c. Empty token
+POST http://localhost:8080/api/admin/promote/{{bob_user_id}}
+Authorization: Bearer
+
+
+
+### 18. Promote non-existing user → expect 404
+POST http://localhost:8080/api/admin/promote/9999
+Authorization: Bearer {{admin_token}}
+
+
+
+############################################################
+### TOKEN INVALIDATION / LOGOUT SIMULATION
+############################################################
+
+### 19. Reset DB → all tokens should become invalid
+DELETE http://localhost:8080/api/reset/all
+
+
+### 19.1 Use old token after reset → expect unauthorized
+POST http://localhost:8080/api/admin/promote/{{bob_user_id}}
+Authorization: Bearer {{admin_token}}
+
+
+
+############################################################
+### FINAL CLEANUP
+############################################################
+
+DELETE http://localhost:8080/api/reset/all
