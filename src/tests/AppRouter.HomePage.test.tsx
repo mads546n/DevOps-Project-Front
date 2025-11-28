@@ -4,6 +4,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { fireEvent } from "@testing-library/react";
 
 import { DeviceProvider } from "../state/provider/DeviceProvider";
 import AppRouter from "../components/AppRouter";
@@ -22,10 +23,12 @@ function renderWithProviders(initialEntries: string[]) {
     );
 }
 
-describe("Routing to homepage", () => {
+describe("Routing to homepage and auctions", () => {
     it("renders the homepage when route is '/' (Usecase #1)", () => {
+        //pre-condition
         renderWithProviders(["/"]);
 
+        //end-state
         // Fælles indhold
         expect(screen.getByText(/Nyeste auktioner/i)).toBeInTheDocument();
         expect(
@@ -44,8 +47,14 @@ describe("Routing to homepage", () => {
     });
 
     it("renders the auction page when route is '/auktioner' (Usecase #2)", () => {
-        renderWithProviders(["/auktioner"]);
+        //pre-condition - at home page
+        renderWithProviders(["/"]);
+        const auktionButton = screen.getByRole("link", { name: /Auktioner/i });
 
+        //event
+        fireEvent.click(auktionButton);
+
+        //end-states
         // Stadig fælles indhold
         expect(screen.getByText(/Nyeste auktioner/i)).toBeInTheDocument();
         expect(
