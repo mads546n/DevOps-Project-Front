@@ -28,48 +28,48 @@ jobs:
         with:
           name: coverage
           path: coverage
-  deploy:
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
+  #deploy:
+  #  needs: test
+  #  if: github.ref == 'refs/heads/main'
+  #  name: Deploy to GitHub Pages
+  #  runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+  #  permissions:
+  #    contents: read
+  #    pages: write
+  #    id-token: write
 
-    steps:
-      - uses: actions/checkout@v4
+  #  steps:
+  #    - uses: actions/checkout@v4
 
-      - name: Use Node 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+  #    - name: Use Node 20
+  #      uses: actions/setup-node@v4
+  #      with:
+  #        node-version: 20
 
-      - name: Install dependencies
-        run: npm ci
+  #    - name: Install dependencies
+  #      run: npm ci
 
-      - name: Build project
-        run: npm run build
+  #    - name: Build project
+  #      run: npm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+  #    - name: Upload Pages artifact
+  #      uses: actions/upload-pages-artifact@v3
+  #      with:
+  #        path: dist
 
-  deploy-pages:
-    needs: deploy
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
+  #deploy-pages:
+  #  needs: deploy
+  #  runs-on: ubuntu-latest
+  #  permissions:
+  #    pages: write
+  #    id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  #  environment:
+  #    name: github-pages
+  #    url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  #  steps:
+  #    - name: Deploy to GitHub Pages
+  #      id: deployment
+  #      uses: actions/deploy-pages@v4*/
