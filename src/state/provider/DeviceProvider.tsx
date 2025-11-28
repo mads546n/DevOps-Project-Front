@@ -1,5 +1,6 @@
 import { DeviceContext } from "../context/DeviceContext";
 import { useDevice } from "../hook/useDevice";
+import React from "react";
 
 interface Props {
     children: React.ReactNode;
