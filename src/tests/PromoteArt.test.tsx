@@ -5,7 +5,7 @@ import { MemoryRouter, Routes, Route } from "react-router-dom";
 import PromoteArtMock from "./PromoteArtMock";
 
 describe("Use Case #16: Promote My Art", () => {
-    //precondition
+    //precondition!
   const setup = () =>
     render(
       <MemoryRouter initialEntries={["/Artist/123"]}>

@@ -6,7 +6,7 @@ import CheckHomepage from './HomepageMock';
 
 describe('CheckHomepage Component', () => {
   it('renders correct message when user IS on /Home (Usecase: #1)', () => {
-    // render component at /Home route
+    //pre-condition
     render(
       <MemoryRouter initialEntries={['/Home']}>
         <Routes>
@@ -15,12 +15,13 @@ describe('CheckHomepage Component', () => {
       </MemoryRouter>
     );
 
+    //end-state
     expect(screen.getByText(/you are on the homepage/i)).toBeInTheDocument();
     expect(screen.queryByText(/you are not on the homepage/i)).toBeNull();
   });
 
   it('renders correct message when user is NOT on /Home (Usecase: #2)', () => {
-    // render component at /Products route
+    // pre-condition
     render(
       <MemoryRouter initialEntries={['/Products']}>
         <Routes>
@@ -29,6 +30,7 @@ describe('CheckHomepage Component', () => {
       </MemoryRouter>
     );
 
+    //end-state
     expect(screen.getByText(/you are not on the homepage/i)).toBeInTheDocument();
     expect(screen.queryByText(/you are on the homepage/i)).toBeNull();
   });
